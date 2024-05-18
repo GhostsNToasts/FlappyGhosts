@@ -10,8 +10,18 @@ const LeaderboardContainer = styled.div`
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  max-height: 400px; /* Set a maximum height */
-  overflow-y: auto; /* Add vertical scrolling if content exceeds height */
+  max-height: 400px;
+  overflow-y: auto;
+  width: 95%;  // Set width to 95%
+  z-index: 2;
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+
+  @media (max-width: 480px) {
+    width: 85%;
+  }
 `;
 
 const LeaderboardTitle = styled.h2`
@@ -22,10 +32,51 @@ const LeaderboardTitle = styled.h2`
   text-shadow: 1px 1px 2px #aaa;
 `;
 
+const HeaderRow = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  background: #e0e0e0;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
+`;
+
+const Column = styled.span`
+  flex: 1;
+  text-align: ${props => props.align || 'left'};
+  padding: 0 10px;
+`;
+
+const Position = styled(Column)`
+  text-align: left;
+  color: #f39c12;
+`;
+
+const Name = styled(Column)`
+  text-align: center;
+`;
+
+const Score = styled(Column)`
+  text-align: right;
+  color: #27ae60;
+`;
+
 const LeaderboardList = styled.ul`
   list-style: none;
   padding: 0;
-  margin: 10px 0 0 0;
+  margin: 0;
 `;
 
 const LeaderboardItem = styled.li`
@@ -39,24 +90,16 @@ const LeaderboardItem = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
 
-const Position = styled.span`
-  font-size: 20px;
-  font-weight: bold;
-  color: #f39c12;
-  margin-right: 10px;
-`;
+  @media (max-width: 768px) {
+    font-size: 16px;
+    padding: 8px;
+  }
 
-const Name = styled.span`
-  flex-grow: 1;
-  text-align: left;
-`;
-
-const Score = styled.span`
-  font-size: 20px;
-  font-weight: bold;
-  color: #27ae60;
+  @media (max-width: 480px) {
+    font-size: 14px;
+    padding: 6px;
+  }
 `;
 
 const Leaderboard = () => {
@@ -71,8 +114,13 @@ const Leaderboard = () => {
   return (
     <LeaderboardContainer>
       <LeaderboardTitle>Leaderboard</LeaderboardTitle>
+      <HeaderRow>
+        <Position>Position</Position>
+        <Name>Name</Name>
+        <Score>Score</Score>
+      </HeaderRow>
       <LeaderboardList>
-        {leaderboard.map((entry, index) => (
+        {leaderboard.slice(0, 10).map((entry, index) => (
           <LeaderboardItem key={index}>
             <Position>{index + 1}</Position>
             <Name>{entry.name}</Name>

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import Pipe from './Pipe';
+import Leaderboard from './Leaderboard';
 
 const GameContainer = styled.div`
   display: flex;
@@ -33,6 +34,8 @@ const GameOverMessage = styled.div`
   font-size: 24px;
   color: red;
   font-weight: bold;
+  z-index: 1;  // Ensure Game Over message is on top
+  display: ${({ show }) => (show ? 'block' : 'none')}; // Conditional display
 `;
 
 const Score = styled.div`
@@ -60,54 +63,10 @@ const LeaderboardContainer = styled.div`
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  max-height: 300px; /* Adjust this to your preference */
-  width: 80%; /* Adjust this to your preference */
+  max-height: 300px;
   overflow-y: auto;
-`;
-
-const LeaderboardTitle = styled.h2`
-  margin: 0;
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-  text-shadow: 1px 1px 2px #aaa;
-`;
-
-const LeaderboardList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 10px 0 0 0;
-`;
-
-const LeaderboardItem = styled.li`
-  font-size: 18px;
-  margin: 10px 0;
-  padding: 10px;
-  color: #333;
-  background: #ffffff;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Position = styled.span`
-  font-size: 20px;
-  font-weight: bold;
-  color: #f39c12;
-  margin-right: 10px;
-`;
-
-const Name = styled.span`
-  flex-grow: 1;
-  text-align: left;
-`;
-
-const ScoreSpan = styled.span`
-  font-size: 20px;
-  font-weight: bold;
-  color: #27ae60;
+  width: 70%;  // Adjust width to 70%
+  z-index: 2;  // Ensure leaderboard is on top
 `;
 
 const Game = () => {
@@ -204,7 +163,7 @@ const Game = () => {
       {pipes.map((pipe, index) => (
         <Pipe key={index} left={pipe.left} height={pipe.height} />
       ))}
-      {isGameOver && <GameOverMessage>Game Over</GameOverMessage>}
+      {isGameOver && !showLeaderboard && <GameOverMessage show={isGameOver}>Game Over</GameOverMessage>}
       <Score>Score: {score}</Score>
       {isGameOver && (
         <InputContainer>
@@ -215,16 +174,7 @@ const Game = () => {
       )}
       {showLeaderboard && (
         <LeaderboardContainer>
-          <LeaderboardTitle>Leaderboard</LeaderboardTitle>
-          <LeaderboardList>
-            {leaderboard.map((entry, index) => (
-              <LeaderboardItem key={index}>
-                <Position>{index + 1}</Position>
-                <Name>{entry.name}</Name>
-                <ScoreSpan>{entry.score}</ScoreSpan>
-              </LeaderboardItem>
-            ))}
-          </LeaderboardList>
+          <Leaderboard />
         </LeaderboardContainer>
       )}
     </GameContainer>
