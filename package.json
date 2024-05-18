@@ -1,7 +1,8 @@
 {
-  "name": "flappy-ghosts",
+  "name": "ghosts-n-toasts-flappy-ghosts",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://GhostsNToasts.github.io/FlappyGhosts/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -13,7 +14,12 @@
     "styled-components": "^6.1.11",
     "web-vitals": "^2.1.4"
   },
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
+  },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build -r git@github.com:GhostsNToasts/FlappyGhosts.git",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
