@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/FlappyGhosts/static/css/main.0cac1680.css",
+    "main.js": "/FlappyGhosts/static/js/main.75794b88.js",
+    "index.html": "/FlappyGhosts/index.html",
+    "main.0cac1680.css.map": "/FlappyGhosts/static/css/main.0cac1680.css.map",
+    "main.75794b88.js.map": "/FlappyGhosts/static/js/main.75794b88.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0cac1680.css",
+    "static/js/main.75794b88.js"
+  ]
+}
